@@ -1,8 +1,3 @@
-version: 2
-
-orbs:
-   aws-s3: circleci/aws-s3@x.y.z # use the AWS S3 orb in your config
-
 workflows: # Define a Workflow running the build job, then the deploy job
    version: 2
    build-deploy: # Make a workflow to build and deploy your project
@@ -11,6 +6,9 @@ workflows: # Define a Workflow running the build job, then the deploy job
        - deploy:
            requires:
              - build # Only run deploy job once the build job has completed
+             
+orbs:
+   aws-s3: circleci/aws-s3@x.y.z # use the AWS S3 orb in your config
              
 jobs:
   build:
