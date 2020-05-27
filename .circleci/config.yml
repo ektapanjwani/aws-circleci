@@ -6,11 +6,11 @@ jobs:
     steps:
       - checkout
       - run: echo "A first hello"
-      - run: mkdir -p my_workspace1
-      - run: echo "Trying out workspaces" > my_workspace1/echo-output.txt
+      - run: mkdir -p my_workspace
+      - run: echo "Trying out workspaces" > my_workspace1/echo-output
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory
-          root: my_workspace1
+          root: my_workspace
           # Must be relative path from root
           paths:
             - echo-output      
@@ -21,7 +21,7 @@ jobs:
       - checkout
       - aws-s3/copy:
           arguments: '--dry-run'
-          from: my_workspace1/echo-output.txt
+          from: my_workspace/echo-output
           to: 's3://redshifttestbucket/'
           
 workflows:
