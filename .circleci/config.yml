@@ -19,10 +19,14 @@ jobs:
       - image: 'cimg/python:3.6'
     steps:
       - checkout
-      - aws-s3/copy:
-          arguments: '--dry-run'
-          from: my_workspace/echo-output
+      - aws-s3/sync:
+          arguments: |
+            --acl public-read \
+            --cache-control "max-age=86400"
+          from: bucket
+          overwrite: true
           to: 's3://redshifttestbucket/'
+          
           
 workflows:
   version: 2
