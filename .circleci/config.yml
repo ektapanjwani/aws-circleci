@@ -16,7 +16,7 @@ jobs:
       - run: # Copy to S3 using the cp command
            name: check for redshift cluster
            command: aws redshift --region us-west-2 describe-clusters
-       -run:
+       - run:
            name: connecting to redshift
            command: psql -h my-redshift-instance.cprffuyieidy.us-west-2.redshift.amazonaws.com:5439 -p 5439 -U epanjwani -d testdb 
            
