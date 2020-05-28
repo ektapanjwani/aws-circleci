@@ -1,5 +1,15 @@
 version: 2
 jobs:
+
+  one:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - checkout
+      - run: echo "A first hello"
+      - run: mkdir -p my_workspace
+      - run: echo "Trying out workspaces" > my_workspace/echo-output.txt
+     
   two:
     docker: 
       - image: 'cimg/python:3.6'
@@ -13,6 +23,7 @@ jobs:
       - run: # Install the AWS CLI if it is not already included in the docker image
            name: Install awscli 
            command: sudo pip install awscli
+     
           
           
 workflows:
