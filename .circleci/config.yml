@@ -1,21 +1,5 @@
 version: 2
 jobs:
-
-  one:
-    docker:
-      - image: circleci/ruby:2.4.1
-    steps:
-      - checkout
-      - run: echo "A first hello"
-      - run: mkdir -p my_workspace
-      - run: echo "Trying out workspaces" > my_workspace/echo-output
-      - persist_to_workspace:
-          # Must be an absolute path, or relative path from working_directory
-          root: my_workspace
-          # Must be relative path from root
-          paths:
-            - echo-output
-     
   two:
     docker: 
       - image: 'cimg/python:3.6'
@@ -31,7 +15,7 @@ jobs:
            command: sudo pip install awscli
       - run: # Copy to S3 using the cp command
            name: copy to S3
-           command: aws s3 cp my_workspace/echo-output s3://redshifttestbucket/
+           command: aws s3 cp s3://redshifttestbucket/testjson_data.json s3://mycirclecibucket/
            
      
           
@@ -40,7 +24,4 @@ workflows:
   version: 2
   one_and_two:
     jobs:
-      - one
-      - two:
-          requires:
-             - one
+      - two
