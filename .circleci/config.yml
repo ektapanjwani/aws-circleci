@@ -3,6 +3,7 @@ jobs:
   two:
     docker: 
       - image: 'cimg/python:3.6'
+      - image: circleci/postgres:9.6.5-alpine-ram
     steps:
       - checkout
       - run: # Install the AWS CLI if it is not already included in the docker image
@@ -13,11 +14,9 @@ jobs:
       - run: # Install the AWS CLI if it is not already included in the docker image
            name: Install awscli 
            command: sudo pip install awscli
-      - run: # Copy to S3 using the cp command
-           name: check for redshift cluster
-           command: psql -h my-redshift-instance.cprffuyieidy.us-west-2.redshift.amazonaws.com:5439 -p 5439 -U epanjwani -d testdb 
-       
-           
+      - run: sudo apt-get update
+      - run: sudo apt-get install postgresql-client-9.6
+      - run: whoami               
             
 workflows:
   version: 2
