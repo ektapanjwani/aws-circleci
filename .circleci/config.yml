@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run: # Install the AWS CLI if it is not already included in the docker image
            name: Install pip 
-           command: brew install pyenv
+           command: sudo apt-get install python-dev
           
           
 workflows:
