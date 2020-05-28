@@ -16,13 +16,7 @@ jobs:
       - run: # Copy to S3 using the cp command
            name: check for redshift cluster
            command: aws redshift describe-clusters
-                  {
-                    "Clusters": []
-                   }
-           
-     
-          
-          
+            
 workflows:
   version: 2
   one_and_two:
