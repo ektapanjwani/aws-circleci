@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run: # Install the AWS CLI if it is not already included in the docker image
            name: Install awscli 
-           command: sudo easy_install pip
+           command: sudo apt-get install python-pip
           
           
 workflows:
