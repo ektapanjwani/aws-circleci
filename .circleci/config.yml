@@ -4,6 +4,8 @@ jobs:
     docker: 
       - image: 'cimg/python:3.6'
       - image: circleci/postgres:9.6-alpine
+        expose:
+          - "5439"
         
     steps:
       - checkout
@@ -18,7 +20,7 @@ jobs:
       - run : sudo apt-get update  
       - run : sudo apt-get install -y postgresql-client
       - run: whoami   
-      - run : psql -h my-redshift-instance.cprffuyieidy.us-west-2.redshift.amazonaws.com:5439 -p 5439 -U epanjwani -d testdb
+      - run : psql -h 'my-redshift-instance.cprffuyieidy.us-west-2.redshift.amazonaws.com' -p 5439 -U epanjwani -d testdb
             
 workflows:
   version: 2
