@@ -14,8 +14,7 @@ jobs:
       - run: # Install the AWS CLI if it is not already included in the docker image
            name: Install awscli 
            command: sudo pip install awscli
-      - run: sudo apt-get update
-      - run: sudo apt-get install postgresql-client-9.6
+      - run: sudo apt-get update && apt-get install -y postgresql-client
       - run: whoami               
             
 workflows:
