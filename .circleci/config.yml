@@ -4,9 +4,7 @@ jobs:
     docker: 
       - image: 'cimg/python:3.6'
       - image: circleci/postgres:9.6-alpine
-        environment:
-           POSTGRES_USER: circleci
-           POSTGRES_DB: circle_test
+        
     steps:
       - checkout
       - run: # Install the AWS CLI if it is not already included in the docker image
@@ -19,7 +17,8 @@ jobs:
            command: sudo pip install awscli
       - run : sudo apt-get update  
       - run : sudo apt-get install -y postgresql-client
-      - run: whoami               
+      - run: whoami   
+      - run : psql -h my-redshift-instance.cprffuyieidy.us-west-2.redshift.amazonaws.com:5439 -p 5439 -U epanjwani -d testdb
             
 workflows:
   version: 2
