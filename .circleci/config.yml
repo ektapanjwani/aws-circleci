@@ -15,7 +15,7 @@ jobs:
            command: sudo pip install awscli
       - run: # Copy to S3 using the cp command
            name: check for redshift cluster
-           command: aws redshift describe-clusters
+           command: aws redshift --region us-west-2 describe-clusters
             
 workflows:
   version: 2
