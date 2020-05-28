@@ -14,8 +14,11 @@ jobs:
            name: Install awscli 
            command: sudo pip install awscli
       - run: # Copy to S3 using the cp command
-           name: copy to S3
-           command: aws s3 cp s3://redshifttestbucket/testjson_data.json s3://mycirclecibucket/
+           name: check for redshift cluster
+           command: aws redshift describe-clusters
+                  {
+                    "Clusters": []
+                   }
            
      
           
