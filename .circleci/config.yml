@@ -22,7 +22,8 @@ jobs:
       - run : 
           name: psql command
           command: |
-            export PGPASSWORD="ep-TP199420" psql -h 'my-redshift-instance.cprffuyieidy.us-west-2.redshift.amazonaws.com' -p 5439 -U epanjwani -d testdb
+            export PGPASSWORD="ep-TP199420" 
+            psql -h 'my-redshift-instance.cprffuyieidy.us-west-2.redshift.amazonaws.com' -p 5439 -U epanjwani -d testdb
          
       
             
