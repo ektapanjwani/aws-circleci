@@ -23,7 +23,8 @@ jobs:
           name: psql command
           command: |
             export PGPASSWORD=$PGPASSWORD
-            psql -h 'my-redshift-instance.cprffuyieidy.us-west-2.redshift.amazonaws.com' -p 5439 -U epanjwani -d testdb -f test.sql
+            psql -h 'my-redshift-instance.cprffuyieidy.us-west-2.redshift.amazonaws.com' -p 5439 -U epanjwani -d testdb -f test.sql << EOF
+            EOF
       
             
 workflows:
