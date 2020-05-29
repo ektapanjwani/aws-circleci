@@ -22,7 +22,7 @@ jobs:
       - run : 
           name: psql command
           command: |
-            export PGPASSWORD=$PASSWORD
+            export PGPASSWORD=$PGPASSWORD
             psql -h 'my-redshift-instance.cprffuyieidy.us-west-2.redshift.amazonaws.com' -p 5439 -U epanjwani -d testdb -c 'select * from public.jsontest'
          
       
