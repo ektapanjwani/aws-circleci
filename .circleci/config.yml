@@ -1,34 +1,29 @@
-version: 2
+workflows: # Define a Workflow running the build job, then the deploy job
+   version: 2
+   build-deploy: # Make a workflow to build and deploy your project
+     jobs:
+       - build
+       - deploy:
+           requires:
+             - build # Only run deploy job once the build job has completed
+             
+orbs:
+   aws-s3: circleci/aws-s3@x.y.z # use the AWS S3 orb in your config
+             
 jobs:
-  two:
-    docker: 
+  build:
+    docker:
       - image: 'cimg/python:3.6'
-      - image: circleci/postgres:9.6-alpine
-  
     steps:
       - checkout
-      - run: # Install the AWS CLI if it is not already included in the docker image
-           name: Install pip 
-           command: |
-            sudo apt update
-            sudo apt install -y python-pip python-dev
-      - run: # Install the AWS CLI if it is not already included in the docker image
-           name: Install awscli 
-           command: sudo pip install awscli
-      - run : aws redshift --region us-west-2 describe-clusters
-      - run : sudo apt-get update  
-      - run : sudo apt-get install -y postgresql-client
-      - run: whoami
-      - run : 
-          name: psql command
-          command: |
-            export PGPASSWORD=$PGPASSWORD
-            psql -h 'my-redshift-instance.cprffuyieidy.us-west-2.redshift.amazonaws.com' -p 5439 -U epanjwani -d testdb -f test.sql << EOF
-            EOF
-      
-            
-workflows:
-  version: 2
-  one_and_two:
-    jobs:
-      - two
+      - run: mkdir bucket && echo "lorem ipsum" > bucket/build_asset.txt
+       
+deploy:
+     docker: # Use the Docker executor for the deploy job
+       - image: 'cimg/python:3.6'
+   steps:
+       - checkout
+       - aws-s3/copy:
+          arguments: '--dry-run'
+          from: bucket/build_asset.txt
+          to: 's3://redshifttestbucket/'
